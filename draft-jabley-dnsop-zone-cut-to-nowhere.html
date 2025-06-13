@@ -1506,12 +1506,9 @@ different, non-cooperating administrators.<a href="#section-6.2-2" class="pilcro
 <pre>
 $ORIGIN .
 
-...
-
 ; the INTERNAL top-level domain is delegated to nowhere, to
 ; facilitate its use in private namespaces
 INTERNAL  172800  IN  NS  .
-...
 </pre><a href="#section-6.2-3" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1526,9 +1523,9 @@ INTERNAL  172800  IN  NS  .
 <p id="section-7-1">This document updates <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> section 3.3.11 as follows:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7-2.1">
-          <p id="section-7-2.1.1">NSDNAME <span class="bcp14">MAY</span> be specified as a single, empty label. Such an NSDNAME
-indicates that a zone cut exists but that the authoritative
-nameservers for the child zone are not specified.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-2.1.1"><code>NSDNAME</code> <span class="bcp14">MAY</span> be specified as a single, empty label to indicate
+that a zone cut exists but that the authoritative nameservers for
+the child zone are not specified.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1539,7 +1536,7 @@ nameservers for the child zone are not specified.<a href="#section-7-2.1.1" clas
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-other-uses-of-the-empty-nam" class="section-name selfRef">Other Uses of the Empty Name in the DNS</a>
       </h2>
 <p id="section-8-1">In <span>[<a href="#RFC7505" class="cite xref">RFC7505</a>]</span> an MX resource record with an empty target (called
-"EXCHANGE" in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>) is specified to mean that the corresponding
+<code>EXCHANGE</code> in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>) is specified to mean that the corresponding
 domain name does not accept e-mail. In effect, the empty field is
 used to indicate that there is no host available to use for e-mail
 delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
@@ -1589,8 +1586,8 @@ zone was intentionally chosen in order to make it clear that such
 a configuration is allowed, is consistent with this specification
 and facilitates the use of private namespaces named under such a
 top-level domain with less ambiguity than might otherwise occur.
-This document does not provide any corresponding operational direction
-to the IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
+This document does not provide any operational direction to the
+IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
