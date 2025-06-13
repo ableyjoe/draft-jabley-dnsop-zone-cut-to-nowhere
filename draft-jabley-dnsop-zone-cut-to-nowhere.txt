@@ -185,7 +185,7 @@ Table of Contents
            ; but in another namespace
 
            PUPPY  3600  IN  DS  [...]
-           PUPPY            NS  .
+                            NS  .
 
    An NS RRSet in a parent zone which includes multiple NS resource
    records is not a delegation to nowhere, even if the target of one of
