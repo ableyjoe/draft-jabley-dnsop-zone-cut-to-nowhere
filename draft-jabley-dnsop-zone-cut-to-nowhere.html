@@ -1350,9 +1350,9 @@ of the NS resource records within the RRSet has an empty target.<a href="#sectio
 <div class="alignLeft art-text artwork" id="section-3-6">
 <pre>
         KITTEN  3600  IN  NS  A.CAT-SERVERS.EXAMPLE.
-                      IN  NS  B.CAT-SERVERS.EXAMPLE.
-                      IN  NS  .                        ; unusual
-                      IN  NS  C.CAT-SERVERS.EXAMPLE.
+                          NS  B.CAT-SERVERS.EXAMPLE.
+                          NS  .                        ; unusual
+                          NS  C.CAT-SERVERS.EXAMPLE.
 </pre><a href="#section-3-6" class="pilcrow">¶</a>
 </div>
 <p id="section-3-7">This NS RRSet as a whole does not encode a delegation to nowhere,
