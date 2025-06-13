@@ -1545,9 +1545,10 @@ different, non-cooperating administrators.<a href="#section-6.2-2" class="pilcro
 <p id="section-7-1">This document updates <span><a href="https://rfc-editor.org/rfc/rfc1035#section-3.3.11" class="relref">Section 3.3.11</a> of [<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> as follows:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7-2.1">
-          <p id="section-7-2.1.1"><code>NSDNAME</code> <span class="bcp14">MAY</span> be specified as a single, empty label to indicate
-that a zone cut exists but that the authoritative nameservers for
-the child zone are not specified.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-2.1.1"><code>NSDNAME</code> <span class="bcp14">MAY</span> be specified as a single, zero-length label. An
+NS RRSet that consists of a single NS resource record with empty
+<code>NSDNAME</code> is used to indicate that a zone cut exists without
+indicating any authoritative nameservers for the child zone.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
