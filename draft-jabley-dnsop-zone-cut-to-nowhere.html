@@ -6,13 +6,14 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Signalling a Zone Cut to Nowhere in the DNS</title>
 <meta content="Joe Abley" name="author">
-<meta content="Warren Kumari" name="author">
 <meta content="Wes Hardaker" name="author">
+<meta content="Warren Kumari" name="author">
 <meta content="
-       This document defines a standard means to signal that a zone cut exists in the DNS
-without specifying a set of nameservers to which a child zone is delegated. This is
-useful in situations where it is important to make it clear to clients that a zone
-cut exists, but when the child zone is only provisioned in a private namespace. 
+       This document defines a standard means to signal that a zone cut
+exists in the DNS without specifying a set of nameservers to which
+a child zone is delegated. This is useful in situations where it
+is important to make it clear to clients that a zone cut exists,
+but when the child zone is only provisioned in a private namespace. 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
 <meta content="DNS" name="keyword">
@@ -1086,12 +1087,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="org">Cloudflare</div>
 </div>
 <div class="author">
-      <div class="author-name">W. Kumari</div>
-<div class="org">Google, Inc.</div>
-</div>
-<div class="author">
       <div class="author-name">W. Hardaker</div>
 <div class="org">USC/ISI</div>
+</div>
+<div class="author">
+      <div class="author-name">W. Kumari</div>
+<div class="org">Google, Inc.</div>
 </div>
 </dd>
 </dl>
@@ -1099,10 +1100,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Signalling a Zone Cut to Nowhere in the DNS</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a standard means to signal that a zone cut exists in the DNS
-without specifying a set of nameservers to which a child zone is delegated. This is
-useful in situations where it is important to make it clear to clients that a zone
-cut exists, but when the child zone is only provisioned in a private namespace.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines a standard means to signal that a zone cut
+exists in the DNS without specifying a set of nameservers to which
+a child zone is delegated. This is useful in situations where it
+is important to make it clear to clients that a zone cut exists,
+but when the child zone is only provisioned in a private namespace.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1238,34 +1240,41 @@ cut exists, but when the child zone is only provisioned in a private namespace.<
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The DNS protocol, as originally specified in <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span> and <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, describes
-a single, global, hierarchical namespace that is separated into zones. The boundary
-between a parent zone and a child zone is indicated using a zone cut. Zone cuts are
-specified using specific resource records which are published within the parent and
-child zones, and are revealed during DNS resolution by referral responses from
-nameservers.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Private namespaces also exist in the DNS. A user of a private network might be able
-to resolve names using local DNS infrastructure that are not visible to other users
-of different networks. This is often an intentional and deliberate configuration by
-network operators, for example to provide name resolution for internal, private
-services that are not available to users of other networks.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">When a device or application uses the DNS protocol to resolve both internal names
-and external names published in the global DNS namespace, ambiguity can result. For
-example, DNS responses from Internet-facing nameservers might indicate that a
-particular name published in an internal namespace does not exist, while an internal
-nameserver might respond differently. Since mobile devices can attach to different
-networks and can cache DNS responses obtained from different namespaces, this ambiguity
-can cause headaches. A DNSSEC-aware resolver on a mobile device might cache a signed,
-negative response from an external nameserver for a particular name, for example, and
-might treat a subsequent positive response from an internal nameserver for the same
-name as bogus, preventing the response from being used by an application.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document provides a means of signalling the existence of a zone cut in a
-namespace which does not include the corresponding child zone, in order to eliminate
-this ambiguity. We refer to this type of zone cut as a "zone cut to nowhere" and
-introduce the corresponding terms "delegation to nowhere" and "referral to nowhere".<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-1">The DNS protocol, as originally specified in <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span> and
+<span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, describes a single, global, hierarchical namespace
+that is separated into zones. The boundary between a parent zone
+and a child zone is indicated using a zone cut. Zone cuts are
+specified using specific resource records which are published within
+the parent and child zones, and are revealed during DNS resolution
+by referral responses from nameservers.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Private namespaces also exist in the DNS. A user of a private network
+might be able to resolve names using local DNS infrastructure that
+are not visible to other users of other networks. This is often an
+intentional and deliberate configuration by network operators. For
+example to provide name resolution for internal, private services
+that are not available to users of other networks.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">When a device or application uses the DNS protocol to resolve both
+internal names and external names published in the global DNS
+namespace, ambiguity can result. For example, DNS responses from
+Internet-reachable nameservers might indicate that a particular
+name published in an internal namespace does not exist, while an
+internal nameserver might be configured to respond differently.
+Since mobile devices can attach to different networks and can cache
+DNS responses obtained from different namespaces, this ambiguity
+can cause headaches. A DNSSEC-aware resolver on a mobile device
+might cache a signed, negative response from an external nameserver
+for a particular name, for example, and might treat a subsequent
+positive response from an internal nameserver for the same name as
+bogus, preventing the response from being used by an application.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document provides a means of signalling the existence of a
+zone cut in a namespace which does not include the corresponding
+child zone, in order to eliminate this ambiguity. We refer to this
+type of zone cut as a "zone cut to nowhere" and introduce the
+corresponding terms "delegation to nowhere" and "referral to nowhere"
+that are defined in <a href="#definitions" class="auto internal xref">Section 2</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="conventions-and-definitions">
+<div id="definitions">
 <section id="section-2">
       <h2 id="name-conventions-and-definitions">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
@@ -1274,23 +1283,26 @@ introduce the corresponding terms "delegation to nowhere" and "referral to nowhe
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document uses DNS terminology as described in <span>[<a href="#RFC9499" class="cite xref">RFC9499</a>]</span>. Familiarity with
-terms defined in that document is assumed.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">This document uses the following phrases which are not commonly used.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-2">This document uses DNS terminology as described in <span>[<a href="#RFC9499" class="cite xref">RFC9499</a>]</span>.
+Familiarity with terms defined in that document is assumed.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">This document also uses the following terms which are not thought
+to be in common usage.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2-4">
 <li id="section-2-4.1">
-          <p id="section-2-4.1.1">"Zone cut to nowhere" -- a zone cut (q.v.) where the parent zone and the child
-zone are provisioned in different namespaces. A zone cut to nowhere is a signal
-provided by the administrator of a parent zone that a child zone exists, but is
-not able to be used in the DNS namespace of the parent.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.1.1">"Zone cut to nowhere" -- a zone cut (q.v.) where the parent zone
+and the child zone are provisioned in different namespaces. A zone
+cut to nowhere is a signal provided by the administrator of a parent
+zone that a child zone exists, but is not able to be used in the
+DNS namespace of the parent.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-2-4.2">
-          <p id="section-2-4.2.1">"Delegation to nowhere" -- a delegation (q.v.) from a parent to a child across
-a zone cut to nowhere.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.2.1">"Delegation to nowhere" -- a delegation (q.v.) from a parent to
+a child across a zone cut to nowhere.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-2-4.3">
-          <p id="section-2-4.3.1">"Referral to nowhere", "Referral response to nowhere" -- DNS response (q.v.) received from a nameserver that
-reveals the existence of a delegation to nowhere.<a href="#section-2-4.3.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.3.1">"Referral to nowhere", "Referral response to nowhere" -- a DNS
+response (q.v.) received from a nameserver that reveals the existence
+of a delegation to nowhere.<a href="#section-2-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
 </section>
@@ -1300,10 +1312,12 @@ reveals the existence of a delegation to nowhere.<a href="#section-2-4.3.1" clas
       <h2 id="name-publishing-a-delegation-to-">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-publishing-a-delegation-to-" class="section-name selfRef">Publishing a Delegation to Nowhere</a>
       </h2>
-<p id="section-3-1">A zone cut to nowhere is implemented in a parent zone using a single NS resource record
-with an empty target (an empty NSDNAME, using the terminology of <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>). A
-zone cut to nowhere between the parent zone EXAMPLE.ORG and the child zone
-INTERNAL.EXAMPLE.ORG with a TTL of 3600 seconds would be described in zone file syntax as follows:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">A zone cut to nowhere is implemented in a parent zone using a single
+NS resource record with an empty target (an empty NSDNAME, using
+the terminology of <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>). A zone cut to nowhere between the
+parent zone <code>EXAMPLE.ORG</code> and the child zone <code>CHILD.EXAMPLE.ORG</code>
+with a TTL of 3600 seconds would be described in zone file syntax
+as follows:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-2">
 <pre>
 ; zone data published in an external nameserver
@@ -1313,10 +1327,11 @@ $ORIGIN EXAMPLE.ORG.
 CHILD  3600  IN  NS  .
 </pre><a href="#section-3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-3-3">A zone cut to nowhere may also be provisioned as a secure delegation. This allows a
-DNSSEC-aware consumer of a referral response to obtain and cache a DNSSEC trust anchor for
-the child zone, for use when it is able to receive a signed response from a nameserver
-that includes the child zone in its namespace.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-3">A zone cut to nowhere may also be provisioned as a secure delegation.
+This allows a DNSSEC-aware consumer of a referral response to obtain
+and cache a DNSSEC trust anchor for the child zone, for use when
+it is able to receive a signed response from a nameserver that
+includes the child zone in its namespace.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-4">
 <pre>
 $ORIGIN EXAMPLE.ORG.
@@ -1326,11 +1341,13 @@ CHILD  3600  IN  DS  [...]
 CHILD            NS  .
 </pre><a href="#section-3-4" class="pilcrow">¶</a>
 </div>
-<p id="section-3-5">An NS RRSet in a parent zone which includes multiple NS resource records is not a
-delegation to nowhere, even if the target of one of the NS resource records within
-the RRSet has an empty target (NSDNAME); that NS resource record has no meaning
-in that situation and serves no obvious, useful purpose. However, such a configuration
-<span class="bcp14">MAY</span> exist, and is not specifically not prohibited by this specification.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-5">An NS RRSet in a parent zone which includes multiple NS resource
+records is not a delegation to nowhere, even if the target of one
+of the NS resource records within the RRSet has an empty target
+(NSDNAME). That NS resource record has no meaning in as a member
+of a broader RRSet and serves no obvious, useful purpose. However,
+such a configuration <span class="bcp14">MAY</span> exist, and is not specifically not prohibited
+by this specification.<a href="#section-3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="interpreting-a-referral-to-nowhere">
@@ -1338,11 +1355,12 @@ in that situation and serves no obvious, useful purpose. However, such a configu
       <h2 id="name-interpreting-a-referral-to-">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-interpreting-a-referral-to-" class="section-name selfRef">Interpreting a Referral to Nowhere</a>
       </h2>
-<p id="section-4-1">No special processing is necessary in order to interpret a referral response to nowhere.
-Individual RRSets present in a referral response to nowhere can safely be
-interpreted in an identical fashion to any other referral response where the
-authoritative servers for the child zone cannot themselves be resolved, and
-hence cannot be reached.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">No special processing is necessary in order to interpret a referral
+response to nowhere.  Individual RRSets present in a referral
+response to nowhere can safely be interpreted and processed in an
+identical fashion to any other referral response where the authoritative
+servers for the child zone cannot themselves be resolved, and hence
+cannot be reached.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="applicability">
@@ -1350,15 +1368,20 @@ hence cannot be reached.<a href="#section-4-1" class="pilcrow">¶</a></p>
       <h2 id="name-applicability">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-applicability" class="section-name selfRef">Applicability</a>
       </h2>
-<p id="section-5-1">When a child zone is known to exist in another namespace, and when that other
-namespace is intended for use with the DNS, a delegation to nowhere <span class="bcp14">MAY</span> be
-provisioned in the global DNS namespace to signal that the private namespace exists.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">A secure delegation to nowhere <span class="bcp14">MAY</span> be provisioned in the global DNS namespace
-if the child zone exists in another namespace and the keys used for signing in the
-child zone are known to the administrator of the parent zone. In the case where
-different child zones are known to exist in separately-administered namespace,
-a secure delegation <span class="bcp14">MUST NOT</span> be provisioned in the global DNS namespace.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">A delegation to nowhere <span class="bcp14">MAY</span> be provisioned in any zone in the global DNS namespace.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-1">When a child zone is known to exist in another namespace, and when
+that other namespace is intended for use with the DNS, a delegation
+to nowhere <span class="bcp14">MAY</span> be provisioned in the global DNS namespace to signal
+that the private namespace exists.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">A secure delegation to nowhere <span class="bcp14">MAY</span> be provisioned in the global DNS
+namespace if the child zone exists in another namespace and the
+keys used for signing in the child zone are known to the administrator
+of the parent zone. In the case where different child zones are
+known to exist in multiple, separately-administered namespaces, a
+secure delegation <span class="bcp14">MUST NOT</span> be used.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">A delegation to nowhere <span class="bcp14">MAY</span> be provisioned in any zone.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">The use of a delegation to nowhere in this document is described
+for DNS resource records, queries and responses using the IN class
+only.<a href="#section-5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
@@ -1371,20 +1394,23 @@ a secure delegation <span class="bcp14">MUST NOT</span> be provisioned in the gl
         <h3 id="name-internal-namespace-as-a-sub">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-internal-namespace-as-a-sub" class="section-name selfRef">Internal Namespace as a Subdomain of a Public Domain</a>
         </h3>
-<p id="section-6.1-1">A company uses names within the <code>EXAMPLE.COM</code> domain both for internal services it provides
-to its employees and for public services that are made available to the general public
-over the Internet.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The company also provides certain services that are only available to users of
-devices attached to its internal network. Those services are named within the
-subdomain <code>CORP.EXAMPLE.COM</code>. The company does not wish those internal services
-to be visible to external users.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3">We say that the <code>EXAMPLE.COM</code> zone exists in the global DNS namespace and that
-the <code>CORP.EXAMPLE.COM</code> zone exists only in a private DNS namespace.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.1-4">The company publishes a <code>CORP.EXAMPLE.COM</code> zone on DNS nameservers attached to its
-internal network. The company configures the DNS resolvers used by devices attached
-to its internal network to be aware that the <code>CORP.EXAMPLE.COM</code> zone is served
-by those internal nameservers, such that queries sent from devices inside the
-company's network can resolve names in the <code>CORP.EXAMPLE.COM</code> domain.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">A company uses names within the <code>EXAMPLE.COM</code> domain both for
+internal services it provides to its employees and for public
+services that are made available to the general public over the
+Internet.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The company also provides certain services that are only available
+to users of devices attached to its internal network. Those services
+are named within the subdomain <code>CORP.EXAMPLE.COM</code>. The company does
+not wish those internal services to be visible to external users.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">We say that the <code>EXAMPLE.COM</code> zone exists in the global DNS namespace
+and that the <code>CORP.EXAMPLE.COM</code> zone exists only in a private DNS
+namespace.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4">The company publishes a <code>CORP.EXAMPLE.COM</code> zone on DNS nameservers
+attached to its internal network. The company configures the DNS
+resolvers used by devices attached to its internal network to be
+aware that the <code>CORP.EXAMPLE.COM</code> zone is served by those internal
+nameservers, such that queries sent from devices inside the company's
+network can resolve names in the <code>CORP.EXAMPLE.COM</code> domain.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1-5">
 <pre>
 $ORIGIN CORP.EXAMPLE.COM.
@@ -1392,9 +1418,10 @@ $ORIGIN CORP.EXAMPLE.COM.
 ; internal zone only served in our internal network
 @      3600  IN  SOA   [...]
 
-; internal zone is served by NS1.CORP.EXAMPLE.COM and NS2.CORP.EXAMPLE.COM
+; the internal zone CORP.EXAMPLE.COM is served by the internal
+; nameservers NS1.CORP.EXAMPLE.COM and NS2.CORP.EXAMPLE.COM
              NS    NS1
-            NS    NS2
+             NS    NS2
 
 NS1          A     192.168.1.37
              AAAA  2001:db8:2:1::2c
@@ -1402,49 +1429,56 @@ NS1          A     192.168.1.37
 NS2          A     192.168.3.56
 NS2          AAAA  2001:db8:2:3::2d
 
-; internal intranet web server is INTRANET.CORP.EXAMPLE.COM
+; the internal intranet web server is INTRANET.CORP.EXAMPLE.COM
 INTRANET     A     192.168.1.74
              AAAA  2001:db8:2:1::f8
 
-; management address of backbone switch is BACKBONE-SW.CORP.EXAMPLE.COM
+; the management address of an internal network device known
+; as BACKBONE-SW.CORP.EXAMPLE.COM
 BACKBONE-SW  A     192.168.2.65
 </pre><a href="#section-6.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1-6">The company publishes an EXAMPLE.COM zone on nameservers that are general reachable over
-the Internet -- that is, the nameservers are reachable and the COM zone returns referrals
-for the EXAMPLE.COM zone to those nameservers. The EXAMPLE.COM zone includes names that the company wants clients to be able to
-resolve regardless of what network they are connected to.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
+<p id="section-6.1-6">The company publishes an EXAMPLE.COM zone on nameservers that are
+general reachable over the Internet -- that is, the nameservers are
+reachable and the COM zone returns referrals for the EXAMPLE.COM
+zone to those nameservers. The EXAMPLE.COM zone includes names that
+the company wants clients to be able to resolve regardless of what
+network they are connected to.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1-7">
 <pre>
 $ORIGIN EXAMPLE.COM.
 
-; public zone published to the Internet
+; the public zone EXAMPLE.COM is published to the Internet
 @      3600  IN  SOA   [...]
 
-; public zone is served by NS1.EXAMPLE.COM and NS2.EXAMPLE.COM
+; the public zone EXAMPLE.COM is served by the nameservers
+; NS1.EXAMPLE.COM and NS2.EXAMPLE.COM which are reachable
+; over the Internet
              NS    NS1
              NS    NS2
 
-; mail for EXAMPLE.COM is handled by MAIL.EXAMPLE.COM
+; Internet mail for EXAMPLE.COM is handled by the server
+; MAIL.EXAMPLE.COM
              MX    10 MAIL.EXAMPLE.COM.
 
-; public nameservers NS1.EXAMPLE.COM and NS2.EXAMPLE.COM
+; The public nameservers NS1.EXAMPLE.COM and NS2.EXAMPLE.COM
 NS1          A     192.0.2.25
 NS1          AAAA  2001:db8:e0::2a
 
 NS2          A     192.0.2.27
 NS2          AAAA  2001:db8:e0::2b
 
-; MAIL.EXAMPLE.COM and WWW.EXAMPLE.COM are intended to be used from anywhere
-; so they are available to be resolved in the global namespace
+; MAIL.EXAMPLE.COM and WWW.EXAMPLE.COM are intended to be used
+; from anywhere, not just by internal clients, so they are
+; named in the global namespace
 MAIL         A     192.0.2.41
 MAIL         A     2001:db8:e0::f1
 
 WWW          A     192.0.2.58
 WWW          AAAA  2001:db8:e0::5e
 
-; CORP.EXAMPLE.COM is our internal namespace. Delegate the corresponding
-; zone to nowhere.
+; CORP.EXAMPLE.COM is our internal namespace. Delegate the
+; corresponding zone to nowhere
 CORP         NS    .
 </pre><a href="#section-6.1-7" class="pilcrow">¶</a>
 </div>
@@ -1455,24 +1489,26 @@ CORP         NS    .
         <h3 id="name-general-purpose-top-level-d">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-general-purpose-top-level-d" class="section-name selfRef">General Purpose Top-Level Domain for Internal Namespaces</a>
         </h3>
-<p id="section-6.2-1">Suppose it has been decided that the top-level domain INTERNAL be reserved for
-use in private namespaces. The root zone of the global DNS is signed using DNSSEC <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>; that is,
-DNSSEC-specific RRSets are published in the root zone that allow DNSSEC-aware
-resolvers to be sure with cryptographic certainty whether particular top-level
-domains exist in the public namespace.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">A delegation to nowhere for the INTERNAL top-level domain in the root zone of
-the global DNS namespace would provide an unambiguous signal to resolvers that
-INTERNAL does exist in other namespaces. An insecure delegation to nowhere is
-appropriate in this example since there is no single trust anchor that could be used to provide
-a secure delegation to zones in multiple namespaces that have different, non-cooperating
-administrators.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">Suppose it has been decided that the top-level domain INTERNAL be
+reserved for use in private namespaces. The root zone of the global
+DNS is signed using DNSSEC <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>; that is, DNSSEC-specific
+RRSets are published in the root zone that allow DNSSEC-aware
+resolvers to be sure with cryptographic certainty whether particular
+top-level domains exist in the public namespace.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">A delegation to nowhere for the INTERNAL top-level domain in the
+root zone of the global DNS namespace would provide an unambiguous
+signal to resolvers that INTERNAL does exist in other namespaces.
+An insecure delegation to nowhere is appropriate in this example
+since there is no single trust anchor that could be used to provide
+a secure delegation to zones in multiple namespaces that have
+different, non-cooperating administrators.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.2-3">
 <pre>
 $ORIGIN .
 
 ...
 
-; an insecure delegation to nowhere for the INTERNAL top-level domain, to
+; the INTERNAL top-level domain is delegated to nowhere, to
 ; facilitate its use in private namespaces
 INTERNAL  172800  IN  NS  .
 ...
@@ -1487,12 +1523,12 @@ INTERNAL  172800  IN  NS  .
       <h2 id="name-updates-to-rfc-1035">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-updates-to-rfc-1035" class="section-name selfRef">Updates to RFC 1035</a>
       </h2>
-<p id="section-7-1"><span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> section 3.3.11 is updated as follows:<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This document updates <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> section 3.3.11 as follows:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7-2.1">
-          <p id="section-7-2.1.1">NSDNAME <span class="bcp14">MAY</span> be specified as a single, empty label. Such an NSDNAME indicates that a
-a zone cut exists
-but that the authoritative nameservers for the child zone are not specified.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-7-2.1.1">NSDNAME <span class="bcp14">MAY</span> be specified as a single, empty label. Such an NSDNAME
+indicates that a zone cut exists but that the authoritative
+nameservers for the child zone are not specified.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1502,9 +1538,11 @@ but that the authoritative nameservers for the child zone are not specified.<a h
       <h2 id="name-other-uses-of-the-empty-nam">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-other-uses-of-the-empty-nam" class="section-name selfRef">Other Uses of the Empty Name in the DNS</a>
       </h2>
-<p id="section-8-1">In <span>[<a href="#RFC7505" class="cite xref">RFC7505</a>]</span> an MX resource record with an empty target (called "EXCHANGE" in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>)
-is specified to mean that the corresponding domain name does not accept e-mail. In effect, the
-empty field is used to indicate that there is no host available to use for e-mail delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">In <span>[<a href="#RFC7505" class="cite xref">RFC7505</a>]</span> an MX resource record with an empty target (called
+"EXCHANGE" in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>) is specified to mean that the corresponding
+domain name does not accept e-mail. In effect, the empty field is
+used to indicate that there is no host available to use for e-mail
+delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
@@ -1512,14 +1550,18 @@ empty field is used to indicate that there is no host available to use for e-mai
       <h2 id="name-operational-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-9-1">The empty name is not known to have been widely used as an NS target, although it has been used
-as an MX target, as described in <a href="#other_uses" class="auto internal xref">Section 8</a>. It is a reasonable concern that if delegations
-to nowhere became prevalent, or if names related to such zone cuts were associated with significant
-traffic, some operational problem might result. For example, DNS software that made incompatible
-assumptions about DNS responses might fail, or unwanted traffic to root servers might result.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">Experiments carried out by the authors to assess the likelihood of such problems are described in
-<a href="#experiments" class="auto internal xref">Appendix A</a>. The results of those experiments do not suggest that the widespread use of
-delegations to nowhere would lead to operational problems.<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-1">The empty name is not known to have been widely used as an NS target,
+although it has been used as an MX target, as described in
+<a href="#other_uses" class="auto internal xref">Section 8</a>. It is a reasonable concern that if delegations to
+nowhere became prevalent, or if names related to such zone cuts
+were associated with significant traffic, some operational problem
+might result. For example, DNS software that made incompatible
+assumptions about DNS responses might fail, or unwanted traffic to
+root servers might result.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">Some experiments carried out by the authors to assess the likelihood
+of such problems are described in <a href="#experiments" class="auto internal xref">Appendix A</a>. The results of
+those experiments do not suggest that the widespread use of delegations
+to nowhere would lead to operational problems.<a href="#section-9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1527,10 +1569,12 @@ delegations to nowhere would lead to operational problems.<a href="#section-9-2"
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">This document provides a means for both internal and external namespaces to be
-provisioned using DNSSEC, allowing a DNSSEC-aware, mobile resolver to maintain a consistent
-chain of trust regardless of whether a private, child namespace exists from it's
-particular vantage point.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">This document provides a means for both internal and global namespaces
+to be provisioned using DNSSEC, allowing a DNSSEC-aware, mobile
+resolver to maintain a consistent chain of trust regardless of
+whether a private, child namespace exists from it's particular
+vantage point. The ability to support this configuration cleanly has
+better security properties than configurations that are ambiguous.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1539,10 +1583,14 @@ particular vantage point.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <p id="section-11-1">This document has no IANA actions.<a href="#section-11-1" class="pilcrow">¶</a></p>
-<p id="section-11-2">The example of the designated top-level domain INTERNAL being provisioned as a delegation of
-INTERNAL to nowhere from the root zone was intentionally chosen in order to make it clear that
-such a configuration is consistent with this specification. This document does not provide
-any corresponding operational direction to the IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
+<p id="section-11-2">The example of the designated top-level domain INTERNAL being
+provisioned as a delegation of INTERNAL to nowhere from the root
+zone was intentionally chosen in order to make it clear that such
+a configuration is allowed, is consistent with this specification
+and facilitates the use of private namespaces named under such a
+top-level domain with less ambiguity than might otherwise occur.
+This document does not provide any corresponding operational direction
+to the IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1589,6 +1637,14 @@ any corresponding operational direction to the IANA, however.<a href="#section-1
 <a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="Byrne1985">[Byrne1985]</dt>
+        <dd>
+<span class="refAuthor">Byrne, D.</span>, <span class="refTitle">"Road to Nowhere"</span>, <time datetime="1985-06-03" class="refDate">3 June 1985</time>. </dd>
+<dd class="break"></dd>
+<dt id="Powers2006">[Powers2006]</dt>
+        <dd>
+<span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7505">[RFC7505]</dt>
       <dd>
 <span class="refAuthor">Levine, J.</span> and <span class="refAuthor">M. Delany</span>, <span class="refTitle">"A "Null MX" No Service Resource Record for Domains That Accept No Mail"</span>, <span class="seriesInfo">RFC 7505</span>, <span class="seriesInfo">DOI 10.17487/RFC7505</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7505">https://www.rfc-editor.org/rfc/rfc7505</a>&gt;</span>. </dd>
@@ -1611,16 +1667,20 @@ any corresponding operational direction to the IANA, however.<a href="#section-1
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-B-1">The authors stand ready to acknowledge all contributions from their friends and colleagues.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">The phrase "delegation to nowhere" was inspired by a misremebered title of a novel by Tim Powers entitled
-"Two Days to Nowhere", in which characters deal with ambiguous realities variously caused by overlapping
-supernatural and mortal realms and time travel using alcohol and imagined magical abilities. This seemed like
-a tremendously useful analogue to the problem of provisioning overlapping namespaces in DNS. Unfortunately,
-it appears that Tim Powers wrote no
-such book, although he did publish the novel "Three Days to Never" in 2006 and many of his novels
-feature ambiguous realities, the supernatural and excessive drinking. Memory is a
-tricky thing. The song "Road to Nowhere" from the 1985 Talking Heads album "Little Creatures" would perhaps have
-been a better inspiration for the terminology. It's a shame that's not what happened.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">The authors stand ready to acknowledge all contributions from their
+friends and colleagues.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">The phrase "delegation to nowhere" was inspired by a misremebered
+title of a novel by Tim Powers entitled "Two Days to Nowhere", in
+which characters deal with ambiguous realities by way of supernatural
+sensitivity, time travel and alcohol.  This seemed like a good
+metaphor for the problem of provisioning overlapping namespaces in
+the DNS. Unfortunately, it appears that Tim Powers wrote no such
+book, although he did publish the novel "Three Days to Never"
+<span>[<a href="#Powers2006" class="cite xref">Powers2006</a>]</span> and many of his novels do feature ambiguity, the
+supernatural and excessive drinking. Memory is a tricky thing. The
+song "Road to Nowhere" {Byrne1985} from the 1985 Talking Heads album
+"Little Creatures" would perhaps have been a better inspiration for
+the terminology.  It's a shame that's not what happened.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
@@ -1637,19 +1697,19 @@ been a better inspiration for the terminology. It's a shame that's not what happ
 </div>
 </address>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Warren Kumari</span></div>
-<div dir="auto" class="left"><span class="org">Google, Inc.</span></div>
-<div class="email">
-<span>Email:</span>
-<a href="mailto:warren@kumari.net" class="email">warren@kumari.net</a>
-</div>
-</address>
-<address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Wes Hardaker</span></div>
 <div dir="auto" class="left"><span class="org">USC/ISI</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:ietf@hardakers.net" class="email">ietf@hardakers.net</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Warren Kumari</span></div>
+<div dir="auto" class="left"><span class="org">Google, Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:warren@kumari.net" class="email">warren@kumari.net</a>
 </div>
 </address>
 </section>
