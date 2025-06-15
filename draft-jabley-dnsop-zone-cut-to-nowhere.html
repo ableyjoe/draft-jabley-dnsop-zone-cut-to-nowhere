@@ -1400,8 +1400,8 @@ systems, for names that are syntactically equivalent to domain names
 in the DNS. In some cases, names resolved by those non-DNS protocols
 are anchored in a specific domain that is consequently reserved for
 their use in the DNS, to avoid name collisions.  Examples of such
-reservations in the DNS are the LOCAL top-level domain reserved for
-use by Multicast DNS <span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span> and the ALT top-level domain
+reservations in the DNS are the <code>LOCAL</code> top-level domain reserved
+for use by Multicast DNS <span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span> and the <code>ALT</code> top-level domain
 reserved use in general for non-DNS resolution protocols <span>[<a href="#RFC9476" class="cite xref">RFC9476</a>]</span>.
 Domains that are not intended for use with the DNS as their resolution
 protocol <span class="bcp14">SHOULD NOT</span> be provisioned in the DNS as delegations to
@@ -1466,9 +1466,9 @@ network can resolve names in the <code>CORP.EXAMPLE.COM</code> domain.<a href="#
         BACKBONE-SW  A     198.51.100.65
 </pre><a href="#section-6.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-6.1-6">The company publishes an EXAMPLE.COM zone on nameservers that are
+<p id="section-6.1-6">The company publishes an <code>EXAMPLE.COM</code> zone on nameservers that are
 general reachable over the Internet -- that is, the nameservers are
-reachable and the COM zone returns referrals for the EXAMPLE.COM
+reachable and the <code>COM</code> zone returns referrals for the <code>EXAMPLE.COM</code>
 zone to those nameservers. The EXAMPLE.COM zone includes names that
 the company wants clients to be able to resolve regardless of what
 network they are connected to.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
@@ -1523,15 +1523,15 @@ network they are connected to.<a href="#section-6.1-6" class="pilcrow">¶</a></p
         <h3 id="name-general-purpose-top-level-d">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-general-purpose-top-level-d" class="section-name selfRef">General Purpose Top-Level Domain for Internal Namespaces</a>
         </h3>
-<p id="section-6.2-1">Suppose it has been decided that the top-level domain INTERNAL be
+<p id="section-6.2-1">Suppose it has been decided that the top-level domain <code>INTERNAL</code> be
 reserved for use in private namespaces. The root zone of the global
 DNS is signed using DNSSEC <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>; that is, DNSSEC-specific
 RRSets are published in the root zone that allow DNSSEC-aware
 resolvers to be sure with cryptographic certainty whether particular
 top-level domains exist in the public namespace.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">A delegation to nowhere for the INTERNAL top-level domain in the
+<p id="section-6.2-2">A delegation to nowhere for the <code>INTERNAL</code> top-level domain in the
 root zone of the global DNS namespace would provide an unambiguous
-signal to resolvers that INTERNAL does exist in other namespaces.
+signal to resolvers that <code>INTERNAL</code> does exist in other namespaces.
 An insecure delegation to nowhere is appropriate in this example
 since there is no single trust anchor that could be used to provide
 a secure delegation to zones in multiple namespaces that have
@@ -1619,8 +1619,8 @@ better security properties than configurations that are ambiguous.<a href="#sect
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <p id="section-11-1">This document has no IANA actions.<a href="#section-11-1" class="pilcrow">¶</a></p>
-<p id="section-11-2">The example of the designated top-level domain INTERNAL being
-provisioned as a delegation of INTERNAL to nowhere from the root
+<p id="section-11-2">The example of the designated top-level domain <code>INTERNAL</code> being
+provisioned as a delegation of <code>INTERNAL</code> to nowhere from the root
 zone was intentionally chosen in order to make it clear that such
 a configuration is allowed, is consistent with this specification
 and facilitates the use of private namespaces named under such a
@@ -1703,7 +1703,7 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
       <h2 id="name-experiments">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
       </h2>
-<p id="appendix-A-1">Wes should commit acts of science, here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Wes has committed acts of science. He will describe them here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">

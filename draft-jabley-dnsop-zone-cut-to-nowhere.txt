@@ -476,7 +476,7 @@ Table of Contents
 
 Appendix A.  Experiments
 
-   Wes should commit acts of science, here.
+   Wes has committed acts of science.  He will describe them here.
 
 Acknowledgments
 
