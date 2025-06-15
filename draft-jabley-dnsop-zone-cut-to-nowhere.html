@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Abley, et al.</td>
-<td class="center">Expires 15 December 2025</td>
+<td class="center">Expires 17 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfcRFC1035" class="eref">RFC1035</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-13" class="published">13 June 2025</time>
+<time datetime="2025-06-15" class="published">15 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-15">15 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-17">17 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1141,7 +1141,7 @@ but when the child zone is only provisioned in a private namespace.<a href="#sec
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1245,9 +1245,10 @@ but when the child zone is only provisioned in a private namespace.<a href="#sec
 that is separated into zones. The boundary between a parent zone
 and a child zone is indicated using a zone cut. Zone cuts are
 specified using specific resource records which are published within
-the parent and child zones and are revealed during DNS resolution
-by referral responses from nameservers.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Private namespaces also exist. A user of a private network might
+the parent and child zones; the parent-side resource records are
+revealed during DNS resolution by way of referral responses from
+nameservers.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Private DNS namespaces also exist. A user of a private network might
 be able to resolve names using local DNS infrastructure that are
 not visible to other users of other networks. This is often an
 intentional and deliberate configuration by network operators, for
@@ -1263,14 +1264,15 @@ Since mobile devices can attach to different networks and can cache
 DNS responses obtained from different namespaces, this ambiguity
 can cause headaches. A DNSSEC-aware resolver on a mobile device
 might cache a signed, negative response from an external nameserver
-for a particular name, for example, and might treat a subsequent
-positive response from an internal nameserver for the same name as
-bogus, preventing the response from being used by an application.<a href="#section-1-3" class="pilcrow">¶</a></p>
+for a particular name and might treat a subsequent, positive response
+from an internal nameserver for the same name as bogus, preventing
+the response from being used by an application.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This document provides a means of signalling the existence of a
 zone cut in a namespace in circumstances where the child zone only
-exists in different namespaces. We refer to this type of zone cut
-as a "zone cut to nowhere" and introduce the corresponding terms
-"delegation to nowhere" and "referral to nowhere" in <a href="#definitions" class="auto internal xref">Section 2</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
+exists in a different namespace from the parent. We refer to this
+type of zone cut as a "zone cut to nowhere" and introduce the
+corresponding terms "delegation to nowhere" and "referral to nowhere"
+in <a href="#definitions" class="auto internal xref">Section 2</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="definitions">
@@ -1311,11 +1313,11 @@ of a delegation to nowhere.<a href="#section-2-4.3.1" class="pilcrow">¶</a></p>
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-publishing-a-delegation-to-" class="section-name selfRef">Publishing a Delegation to Nowhere</a>
       </h2>
 <p id="section-3-1">A zone cut to nowhere is implemented in a parent zone using a single
-NS resource record with an empty target (an empty NSDNAME, using
-the terminology of <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>). A zone cut to nowhere between the
-parent zone <code>EXAMPLE.ORG</code> and the child zone <code>DUCKLING.EXAMPLE.ORG</code>
-with a TTL of 3600 seconds would be described in zone file syntax
-as follows:<a href="#section-3-1" class="pilcrow">¶</a></p>
+NS resource record with an empty target (an empty NSDNAME, in the
+parlance of <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>). A zone cut to nowhere between the parent
+zone <code>EXAMPLE.ORG</code> and the child zone <code>DUCKLING.EXAMPLE.ORG</code> with
+a TTL of 3600 seconds would be described in zone file syntax as
+follows:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-2">
 <pre>
         ; zone data published in an external nameserver
@@ -1359,7 +1361,7 @@ resource records within the RRSet has an empty target.<a href="#section-3-5" cla
 NS resource records exist in addition to the record with the empty
 target (marked with a comment as "unusual"). This configuration may
 have some other meaning in a different context, however, and is
-specifically not prohibited by this specification.<a href="#section-3-7" class="pilcrow">¶</a></p>
+specifically not addressed by this specification.<a href="#section-3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="interpreting-a-referral-to-nowhere">
@@ -1393,7 +1395,19 @@ secure delegation <span class="bcp14">MUST NOT</span> be used.<a href="#section-
 <p id="section-5-3">A delegation to nowhere <span class="bcp14">MAY</span> be provisioned in any zone.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">The use of a delegation to nowhere in this document is described
 for DNS resource records, queries and responses using the IN class
-only.<a href="#section-5-4" class="pilcrow">¶</a></p>
+only. Use of this mechanism using other classes is not addressed by
+this specification.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">The namespace used by the DNS is also used by other, different name
+resolution protocols. In some cases, those name resolution protocols
+are anchored in a specific domain that is reserved for their use,
+and hence not used in the DNS. Examples of such reservations are
+the LOCAL top-level domain reserved for use by Multicast DNS
+<span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span> and the ALT top-level domain reserved use by non-DNS
+resolution protocols <span>[<a href="#RFC9476" class="cite xref">RFC9476</a>]</span>. Domains that are not intended
+for use with the DNS as their resolution protocol <span class="bcp14">SHOULD NOT</span> be
+provisioned in the DNS as delegations to nowhere, since there is
+no DNS namespace ambiguity that such a configuration could help
+with.<a href="#section-5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
@@ -1668,9 +1682,17 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6762">[RFC6762]</dt>
+        <dd>
+<span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"Multicast DNS"</span>, <span class="seriesInfo">RFC 6762</span>, <span class="seriesInfo">DOI 10.17487/RFC6762</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6762">https://www.rfc-editor.org/rfc/rfc6762</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7505">[RFC7505]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Levine, J.</span> and <span class="refAuthor">M. Delany</span>, <span class="refTitle">"A "Null MX" No Service Resource Record for Domains That Accept No Mail"</span>, <span class="seriesInfo">RFC 7505</span>, <span class="seriesInfo">DOI 10.17487/RFC7505</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7505">https://www.rfc-editor.org/rfc/rfc7505</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9476">[RFC9476]</dt>
+      <dd>
+<span class="refAuthor">Kumari, W.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"The .alt Special-Use Top-Level Domain"</span>, <span class="seriesInfo">RFC 9476</span>, <span class="seriesInfo">DOI 10.17487/RFC9476</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9476">https://www.rfc-editor.org/rfc/rfc9476</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1692,18 +1714,20 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
       </h2>
 <p id="appendix-B-1">The authors stand ready to acknowledge all contributions from their
 friends and colleagues.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">The phrase "delegation to nowhere" was inspired by a misremebered
+<p id="appendix-B-2">The phrase "delegation to nowhere" was inspired by the misremebered
 title of a novel by Tim Powers entitled "Two Days to Nowhere", in
 which characters deal with ambiguous realities by way of supernatural
 sensitivity, time travel and alcohol.  This seemed like a good
 metaphor for the problem of provisioning overlapping namespaces in
-the DNS. Unfortunately, it appears that Tim Powers wrote no such
-book, although he did publish the novel "Three Days to Never"
-<span>[<a href="#Powers2006" class="cite xref">Powers2006</a>]</span> and much of his writing features ambiguity, the
-supernatural and excessive drinking. Memory is a tricky thing. The
-song "Road to Nowhere" <span>[<a href="#Byrne1985" class="cite xref">Byrne1985</a>]</span> from the 1985 Talking Heads
+the DNS.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">Unfortunately, it appears that Tim Powers wrote no such book,
+although he did publish the similarly-named novel "Three Days to
+Never" <span>[<a href="#Powers2006" class="cite xref">Powers2006</a>]</span> which is perhaps what I was thinking of. And
+it's certainly true that much of his writing features ambiguity,
+the supernatural and excessive drinking. Memory is a tricky thing.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+<p id="appendix-B-4">The song "Road to Nowhere" <span>[<a href="#Byrne1985" class="cite xref">Byrne1985</a>]</span> from the 1985 Talking Heads
 album "Little Creatures" would perhaps have been a better inspiration
-for the terminology.  It's a shame that's not what happened.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+for the terminology.  It's a shame that's not what happened.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
