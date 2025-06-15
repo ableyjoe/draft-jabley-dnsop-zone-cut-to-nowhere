@@ -1389,9 +1389,9 @@ child zone exists in some other namespace. In such circumstances
 the parent zone <span class="bcp14">MAY</span> be the root zone, or any other zone.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">A secure delegation to nowhere <span class="bcp14">MAY</span> be provisioned if the keys used
 for signing in the child zone are known to the administrator of the
-parent zone. In the case where different child zones are known to
-exist in multiple, separately-administered namespaces, a secure
-delegation <span class="bcp14">MUST NOT</span> be used.<a href="#section-5-2" class="pilcrow">¶</a></p>
+parent zone. In the case where differently-signed (or unsigned)
+child zones are known to exist in different namespaces, a secure
+delegation <span class="bcp14">SHOULD NOT</span> be used.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">The use of a delegation to nowhere in this document is described
 for the IN class only. Use of this mechanism in other classes is
 not addressed by this specification.<a href="#section-5-3" class="pilcrow">¶</a></p>
