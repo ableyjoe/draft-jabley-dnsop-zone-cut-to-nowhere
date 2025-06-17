@@ -399,13 +399,13 @@ Table of Contents
 9.  Operational Considerations
 
    The empty name is not known to have been widely used as an NS target,
-   although it has been used as an MX target, as described in Section 8.
-   It is a reasonable concern that if delegations to nowhere became
-   prevalent, or if names related to such zone cuts were associated with
-   significant traffic, some operational problem might result.  For
-   example, DNS software that made incompatible assumptions about DNS
-   responses might fail, or harmful traffic to root servers might
-   result.
+   although it has been used with other resource records, as described
+   in Section 8.  It is a reasonable concern that if delegations to
+   nowhere became prevalent, or if names related to such zone cuts were
+   associated with significant traffic, some operational problem might
+   result.  For example, DNS software that made incompatible assumptions
+   about DNS responses might fail, or harmful traffic to root servers
+   might result.
 
    Some experiments carried out by the authors to assess the likelihood
    of such problems are described in Appendix A.  The results of those
