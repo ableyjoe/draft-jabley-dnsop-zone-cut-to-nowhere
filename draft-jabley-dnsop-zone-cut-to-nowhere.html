@@ -1579,11 +1579,14 @@ private namespace).<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 domain name does not accept e-mail. In effect, the empty field is
 used to indicate that there is no host available to use for e-mail
 delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">In addition, <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span> states that an SVR 'Target of "." means that the
-service is decidedly not available at this domain.'. <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, Section 2.5
-(Special Handling of "." in TargetName) expands on this, including noting
-that for 'For AliasMode SVCB RRs, a TargetName of "." indicates that the
-service is not available or does not exist.'<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-2">In <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span> an SRV 'Target of "." means that the service is
+decidedly not available at this domain.'.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3"><span>[<a href="#RFC9460" class="cite xref">RFC9460</a>], <a href="https://rfc-editor.org/rfc/rfc9460#section-2.5" class="relref">Section 2.5</a></span> notes that 'For AliasMode SVCB RRs, a
+TargetName of "." indicates that the service is not available or
+does not exist.'<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">These uses of the empty name are conceptually consistent with the
+meaning defined in this document: that using an empty name is to
+be interpreted as the corresponding function not being available.<a href="#section-8-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
@@ -1680,11 +1683,11 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="Byrne1985">[Byrne1985]</dt>
         <dd>
-<span class="refAuthor">Byrne, D.</span>, <span class="refTitle">"Road to Nowhere"</span>, <span class="refContent">from the album "Little Creatures", Sire Records, released 1985-06-10</span>, <time datetime="1985-06-03" class="refDate">3 June 1985</time>. </dd>
+<span class="refAuthor">Byrne, D.</span>, <span class="refTitle">"Road to Nowhere"</span>, <span class="refContent">from the album "Little Creatures", Sire Records</span>, <time datetime="1985-06-03" class="refDate">3 June 1985</time>. </dd>
 <dd class="break"></dd>
 <dt id="Powers2006">[Powers2006]</dt>
         <dd>
-<span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <span class="refContent">William Morrow &amp; Company</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
+<span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <span class="refContent">William Morrow &amp; Company, ISBN 978-0380976539</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2782">[RFC2782]</dt>
         <dd>
