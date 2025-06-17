@@ -6,9 +6,9 @@ Domain Name System Operations                                   J. Abley
 Internet-Draft                                                Cloudflare
 Updates: RFC1035 (if approved)                               W. Hardaker
 Intended status: Standards Track                                 USC/ISI
-Expires: 17 December 2025                                      W. Kumari
+Expires: 19 December 2025                                      W. Kumari
                                                             Google, Inc.
-                                                            15 June 2025
+                                                            17 June 2025
 
 
               Signalling a Zone Cut to Nowhere in the DNS
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 December 2025.
+   This Internet-Draft will expire on 19 December 2025.
 
 Copyright Notice
 
@@ -456,10 +456,13 @@ Table of Contents
 12.2.  Informative References
 
    [Byrne1985]
-              Byrne, D., "Road to Nowhere", 3 June 1985.
+              Byrne, D., "Road to Nowhere", from the album "Little
+              Creatures", Sire Records, released 1985-06-10, 3 June
+              1985.
 
    [Powers2006]
-              Powers, T., "Three Days to Never", 8 August 2006.
+              Powers, T., "Three Days to Never", William Morrow &
+              Company, 8 August 2006.
 
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
