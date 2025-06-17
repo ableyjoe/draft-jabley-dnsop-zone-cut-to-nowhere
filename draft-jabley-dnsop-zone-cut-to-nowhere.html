@@ -1579,6 +1579,11 @@ private namespace).<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 domain name does not accept e-mail. In effect, the empty field is
 used to indicate that there is no host available to use for e-mail
 delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">In addition, <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span> states that an SVR 'Target of "." means that the
+service is decidedly not available at this domain.'. <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, Section 2.5
+(Special Handling of "." in TargetName) expands on this, including noting
+that for 'For AliasMode SVCB RRs, a TargetName of "." indicates that the
+service is not available or does not exist.'<a href="#section-8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
@@ -1681,6 +1686,10 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <span class="refContent">William Morrow &amp; Company</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
 <dd class="break"></dd>
+<dt id="RFC2782">[RFC2782]</dt>
+        <dd>
+<span class="refAuthor">Gulbrandsen, A.</span>, <span class="refAuthor">Vixie, P.</span>, and <span class="refAuthor">L. Esibov</span>, <span class="refTitle">"A DNS RR for specifying the location of services (DNS SRV)"</span>, <span class="seriesInfo">RFC 2782</span>, <span class="seriesInfo">DOI 10.17487/RFC2782</span>, <time datetime="2000-02" class="refDate">February 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2782">https://www.rfc-editor.org/rfc/rfc2782</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6762">[RFC6762]</dt>
         <dd>
 <span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"Multicast DNS"</span>, <span class="seriesInfo">RFC 6762</span>, <span class="seriesInfo">DOI 10.17487/RFC6762</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6762">https://www.rfc-editor.org/rfc/rfc6762</a>&gt;</span>. </dd>
@@ -1688,6 +1697,10 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
 <dt id="RFC7505">[RFC7505]</dt>
         <dd>
 <span class="refAuthor">Levine, J.</span> and <span class="refAuthor">M. Delany</span>, <span class="refTitle">"A "Null MX" No Service Resource Record for Domains That Accept No Mail"</span>, <span class="seriesInfo">RFC 7505</span>, <span class="seriesInfo">DOI 10.17487/RFC7505</span>, <time datetime="2015-06" class="refDate">June 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7505">https://www.rfc-editor.org/rfc/rfc7505</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9460">[RFC9460]</dt>
+        <dd>
+<span class="refAuthor">Schwartz, B.</span>, <span class="refAuthor">Bishop, M.</span>, and <span class="refAuthor">E. Nygren</span>, <span class="refTitle">"Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)"</span>, <span class="seriesInfo">RFC 9460</span>, <span class="seriesInfo">DOI 10.17487/RFC9460</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9460">https://www.rfc-editor.org/rfc/rfc9460</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9476">[RFC9476]</dt>
       <dd>

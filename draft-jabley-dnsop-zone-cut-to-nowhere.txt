@@ -385,6 +385,12 @@ Table of Contents
    used to indicate that there is no host available to use for e-mail
    delivery.
 
+   In addition, [RFC2782] states that an SVR 'Target of "." means that
+   the service is decidedly not available at this domain.'.  [RFC9460],
+   Section 2.5 (Special Handling of "." in TargetName) expands on this,
+   including noting that for 'For AliasMode SVCB RRs, a TargetName of
+   "." indicates that the service is not available or does not exist.'
+
 9.  Operational Considerations
 
    The empty name is not known to have been widely used as an NS target,
@@ -464,6 +470,11 @@ Table of Contents
               Powers, T., "Three Days to Never", William Morrow &
               Company, 8 August 2006.
 
+   [RFC2782]  Gulbrandsen, A., Vixie, P., and L. Esibov, "A DNS RR for
+              specifying the location of services (DNS SRV)", RFC 2782,
+              DOI 10.17487/RFC2782, February 2000,
+              <https://www.rfc-editor.org/rfc/rfc2782>.
+
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
               <https://www.rfc-editor.org/rfc/rfc6762>.
@@ -472,6 +483,11 @@ Table of Contents
               Record for Domains That Accept No Mail", RFC 7505,
               DOI 10.17487/RFC7505, June 2015,
               <https://www.rfc-editor.org/rfc/rfc7505>.
+
+   [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
+              and Parameter Specification via the DNS (SVCB and HTTPS
+              Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
+              November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
 
    [RFC9476]  Kumari, W. and P. Hoffman, "The .alt Special-Use Top-Level
               Domain", RFC 9476, DOI 10.17487/RFC9476, September 2023,
