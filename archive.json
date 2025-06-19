@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-17T01:22:36.168991+00:00",
+  "timestamp": "2025-06-19T01:22:22.158444+00:00",
   "repo": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
   "labels": [
     {
@@ -50,5 +50,368 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOO7BwNM6a6zO2",
+      "title": "Some additional uses of '.'",
+      "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/1",
+      "state": "MERGED",
+      "author": "wkumari",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Some prior art...",
+      "createdAt": "2025-06-17T14:56:59Z",
+      "updatedAt": "2025-06-17T14:59:29Z",
+      "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "baseRefName": "main",
+      "baseRefOid": "077649039e68b61e51e2846de41f1719d1f8ab11",
+      "headRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "headRefName": "addl_prior_art",
+      "headRefOid": "6d402a54b018570a6b90431a83abe37897c15970",
+      "closedAt": "2025-06-17T14:59:29Z",
+      "mergedAt": "2025-06-17T14:59:29Z",
+      "mergedBy": "ableyjoe",
+      "mergeCommit": {
+        "oid": "6675723bae7ad4a22e59b3bb4d6a2b8e080287ff"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOO7BwNM6vAF7z",
+          "commit": {
+            "abbreviatedOid": "6d402a5"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-17T14:58:46Z",
+          "updatedAt": "2025-06-17T14:58:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOO7BwNM6a9EUC",
+      "title": "Suggestions from Peter",
+      "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/2",
+      "state": "OPEN",
+      "author": "peterthomassen",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Mostly clarity, typos etc. Relevant points:\r\n\r\n1. A \"zone cut\" has no direction, so it also can't be \"to nowhere\". (If anything, I'd say the direction is along the parent-child dimension and not to the child's authoritative servers.) Thus, removed the term and used \"delegation to nowhere\" throughout.\r\n2. \"empty\" target/name/NSDNAME seems to be undefined; it's easy to mis-interpret that it would not even contain the root label (sure, that's malformed, but still it's unnecessarily unclear). Added an implicit definition in Section 7, but I believe it should go further up.\r\n3. Why limit to the IN class? RFC 1035 Section 2.2 says that some RRs, including NS, \"will be used in all classes, and have the same format in all classes\". Do we want to make an exception? Why?\r\n4. I added a note to Section 4 about the mechanism relying on the root having no address. Is this guaranteed? -- I couldn't find a source that a hostname may not be empty (does not follow from RFC 952 Appendix A nor RFC 1123 Section 2.1), and even if that were the case, the root would simply be a \"non-host domain\" but could still have an address. I think we either need to derive this more strictly or impose a restriction.\r\n5. Emphasized \"DNS\" when talking about other namespaces, to make sure nobody mis-interprets this draft as signalling non-DNS mechanisms.\r\n\r\nIt's all in one commit because that was easier, but feel free to apply fix-ups on top of it.",
+      "createdAt": "2025-06-17T19:06:38Z",
+      "updatedAt": "2025-06-18T08:28:37Z",
+      "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "baseRefName": "main",
+      "baseRefOid": "345e5181de71f0ecf0f0b0db7e2b6e3567770212",
+      "headRepository": "peterthomassen/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "headRefName": "main",
+      "headRefOid": "81db2d23506b4c86b16b4d1c2d9b83308d3bb651",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOO7BwNM6vHdF3",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:00:09Z",
+          "updatedAt": "2025-06-18T07:00:09Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "I prefer \"zone cut to nowhere\". I agree with you that a zone cut has no direction, but that's kind of the point of the title. There's a dusting of humour on it; a cut ordinarily separates two things, but in this case it's a cut that (in a single namespace) acts more like an abrupt dimensional cliff. It's supposed to be jarring in meaning.",
+              "createdAt": "2025-06-18T07:00:09Z",
+              "updatedAt": "2025-06-18T07:00:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHeP0",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:01:57Z",
+          "updatedAt": "2025-06-18T07:01:57Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "Mobile devices don't *necessarily* connect to different networks, they could be mobile in other senses, so I prefer the original text here. I also originally included the second \"For example\" but when I read it through I found it already clear that examples were being given, and the repeated reminder was annoying. So I prefer to leave that out, too.",
+              "createdAt": "2025-06-18T07:01:57Z",
+              "updatedAt": "2025-06-18T07:01:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHeuN",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:02:42Z",
+          "updatedAt": "2025-06-18T07:02:42Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "\"different from that of the parent\" is a good improvement. I would prefer to leave the rest as-is.",
+              "createdAt": "2025-06-18T07:02:42Z",
+              "updatedAt": "2025-06-18T07:02:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHe7y",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:03:03Z",
+          "updatedAt": "2025-06-18T07:03:03Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "As before, I prefer to preserve the term \"zone cut to nowhere\".",
+              "createdAt": "2025-06-18T07:03:03Z",
+              "updatedAt": "2025-06-18T07:03:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHfID",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:03:22Z",
+          "updatedAt": "2025-06-18T07:03:22Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "As before, I prefer to preserve the term \"zone cut to nowhere\".",
+              "createdAt": "2025-06-18T07:03:22Z",
+              "updatedAt": "2025-06-18T07:03:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHfgF",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:03:58Z",
+          "updatedAt": "2025-06-18T07:03:59Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "In this example, I think we want to be declarative -- the example corresponds to a situation where DUCKLING.EXAMPLE.ORG *does* exist.",
+              "createdAt": "2025-06-18T07:03:58Z",
+              "updatedAt": "2025-06-18T07:03:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHfry",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:04:16Z",
+          "updatedAt": "2025-06-18T07:04:17Z",
+          "comments": [
+            {
+              "originalPosition": 112,
+              "body": "As before, I prefer the original text.",
+              "createdAt": "2025-06-18T07:04:16Z",
+              "updatedAt": "2025-06-18T07:04:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHgAv",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:04:44Z",
+          "updatedAt": "2025-06-18T07:04:44Z",
+          "comments": [
+            {
+              "originalPosition": 128,
+              "body": "No, I think we mean \"unusual\". The point is that this is unexpected.",
+              "createdAt": "2025-06-18T07:04:44Z",
+              "updatedAt": "2025-06-18T07:04:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHgQ3",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:05:02Z",
+          "updatedAt": "2025-06-18T07:05:02Z",
+          "comments": [
+            {
+              "originalPosition": 135,
+              "body": "I prefer the original text.",
+              "createdAt": "2025-06-18T07:05:02Z",
+              "updatedAt": "2025-06-18T07:05:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHg2x",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:05:45Z",
+          "updatedAt": "2025-06-18T07:05:45Z",
+          "comments": [
+            {
+              "originalPosition": 146,
+              "body": "It's a good question. This may be a question we want to leave to the working group.",
+              "createdAt": "2025-06-18T07:05:45Z",
+              "updatedAt": "2025-06-18T07:05:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHh4m",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T07:07:18Z",
+          "updatedAt": "2025-06-18T07:07:18Z",
+          "comments": [
+            {
+              "originalPosition": 169,
+              "body": "We might leave this to the working group. I agree with your PR comment that it's possible to imagine this being fine in other classes, but since we don't know anything about other classes, really, it seems silly to presume. I think ring-fencing the specification here in the Internet we know seems better?",
+              "createdAt": "2025-06-18T07:07:18Z",
+              "updatedAt": "2025-06-18T07:07:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vHjfT",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "ableyjoe",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "I left some comments for your delectation!",
+          "createdAt": "2025-06-18T07:09:54Z",
+          "updatedAt": "2025-06-18T07:09:54Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vIa5b",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "peterthomassen",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T08:19:15Z",
+          "updatedAt": "2025-06-18T08:19:16Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "I don't feel strongly, but I note that the frequency of the expression goes down throughout out the document; it is only used in Sections 2 and 3, and not at all in the second half of the document. That seems to suggest that even the writer found the other term more comfortable. I'd also predict that this point will come up a few times, so I intended to prevent that and resolve it now.\r\n\r\nThat said, I appreciate the humor and the jarring, and actually *do* like the term, but only in the title :upside_down_face: ",
+              "createdAt": "2025-06-18T08:19:15Z",
+              "updatedAt": "2025-06-18T08:19:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vIeqk",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "peterthomassen",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T08:24:12Z",
+          "updatedAt": "2025-06-18T08:24:12Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "I meant \"as\" in the temporal sense (not in the causal sense). (Example from Wiktionary: \"As she grew older, she grew wiser.\")",
+              "createdAt": "2025-06-18T08:24:12Z",
+              "updatedAt": "2025-06-18T08:24:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6vIiEH",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "peterthomassen",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-18T08:28:37Z",
+          "updatedAt": "2025-06-18T08:28:37Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "I'll be OK to be in the rough here, but it would be nice to hear what @wkumari @hardaker  think about this point. Please also see bullet 1 of the opening comment https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/2#issue-3154494330. Thanks!",
+              "createdAt": "2025-06-18T08:28:37Z",
+              "updatedAt": "2025-06-18T08:28:38Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
