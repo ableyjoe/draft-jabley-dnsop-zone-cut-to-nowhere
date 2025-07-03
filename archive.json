@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-01T01:41:02.104774+00:00",
+  "timestamp": "2025-07-03T01:22:49.325635+00:00",
   "repo": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
   "labels": [
     {
@@ -105,13 +105,13 @@
       "labels": [],
       "body": "Mostly clarity, typos etc. Relevant points:\r\n\r\n1. A \"zone cut\" has no direction, so it also can't be \"to nowhere\". (If anything, I'd say the direction is along the parent-child dimension and not to the child's authoritative servers.) Thus, removed the term and used \"delegation to nowhere\" throughout.\r\n2. \"empty\" target/name/NSDNAME seems to be undefined; it's easy to mis-interpret that it would not even contain the root label (sure, that's malformed, but still it's unnecessarily unclear). Added an implicit definition in Section 7, but I believe it should go further up.\r\n3. Why limit to the IN class? RFC 1035 Section 2.2 says that some RRs, including NS, \"will be used in all classes, and have the same format in all classes\". Do we want to make an exception? Why?\r\n4. I added a note to Section 4 about the mechanism relying on the root having no address. Is this guaranteed? -- I couldn't find a source that a hostname may not be empty (does not follow from RFC 952 Appendix A nor RFC 1123 Section 2.1), and even if that were the case, the root would simply be a \"non-host domain\" but could still have an address. I think we either need to derive this more strictly or impose a restriction.\r\n5. Emphasized \"DNS\" when talking about other namespaces, to make sure nobody mis-interprets this draft as signalling non-DNS mechanisms.\r\n\r\nIt's all in one commit because that was easier, but feel free to apply fix-ups on top of it.",
       "createdAt": "2025-06-17T19:06:38Z",
-      "updatedAt": "2025-06-18T08:28:37Z",
+      "updatedAt": "2025-07-01T22:48:26Z",
       "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
       "baseRefName": "main",
       "baseRefOid": "345e5181de71f0ecf0f0b0db7e2b6e3567770212",
       "headRepository": "peterthomassen/draft-jabley-dnsop-zone-cut-to-nowhere",
       "headRefName": "main",
-      "headRefOid": "81db2d23506b4c86b16b4d1c2d9b83308d3bb651",
+      "headRefOid": "eb2f4ab687aabc7730eec6edaf5df3ff019e6ccd",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -408,6 +408,186 @@
               "body": "I'll be OK to be in the rough here, but it would be nice to hear what @wkumari @hardaker  think about this point. Please also see bullet 1 of the opening comment https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/2#issue-3154494330. Thanks!",
               "createdAt": "2025-06-18T08:28:37Z",
               "updatedAt": "2025-06-18T08:28:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWjU7",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:34:10Z",
+          "updatedAt": "2025-07-01T13:34:10Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "I agree with Joe here -- the \"zone cut\" to nowhere to me is both clearer, and more illustrative.",
+              "createdAt": "2025-07-01T13:34:10Z",
+              "updatedAt": "2025-07-01T13:34:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWj4y",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:34:47Z",
+          "updatedAt": "2025-07-01T13:34:47Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "Yup.",
+              "createdAt": "2025-07-01T13:34:47Z",
+              "updatedAt": "2025-07-01T13:34:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWkY-",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:35:23Z",
+          "updatedAt": "2025-07-01T13:35:23Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "As above / agree with Joe.",
+              "createdAt": "2025-07-01T13:35:23Z",
+              "updatedAt": "2025-07-01T13:35:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWkub",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:35:45Z",
+          "updatedAt": "2025-07-01T13:35:46Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "Me too!",
+              "createdAt": "2025-07-01T13:35:46Z",
+              "updatedAt": "2025-07-01T13:35:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWk09",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:35:52Z",
+          "updatedAt": "2025-07-01T13:35:52Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "Yup.",
+              "createdAt": "2025-07-01T13:35:52Z",
+              "updatedAt": "2025-07-01T13:35:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWk8P",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:35:59Z",
+          "updatedAt": "2025-07-01T13:35:59Z",
+          "comments": [
+            {
+              "originalPosition": 112,
+              "body": "Yup.",
+              "createdAt": "2025-07-01T13:35:59Z",
+              "updatedAt": "2025-07-01T13:35:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xWleb",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T13:36:19Z",
+          "updatedAt": "2025-07-01T13:36:19Z",
+          "comments": [
+            {
+              "originalPosition": 146,
+              "body": "Agreed.",
+              "createdAt": "2025-07-01T13:36:19Z",
+              "updatedAt": "2025-07-01T13:36:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xc7ry",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "peterthomassen",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T22:39:00Z",
+          "updatedAt": "2025-07-01T22:39:00Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "I'm putting it back in, as I'm apparently in the rough (and that's OK for course). -- Note that (2) above says that a \"Delegation to nowhere\" is a \"delegation [...] to a child\". That also seems confusing. (edit: changed to \"for a child\")",
+              "createdAt": "2025-07-01T22:39:00Z",
+              "updatedAt": "2025-07-01T22:39:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOO7BwNM6xc9xr",
+          "commit": {
+            "abbreviatedOid": "81db2d2"
+          },
+          "author": "peterthomassen",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-01T22:42:22Z",
+          "updatedAt": "2025-07-01T22:42:22Z",
+          "comments": [
+            {
+              "originalPosition": 128,
+              "body": "I don't know how usual it is, but I agree it's unexpected, so I've changed it to that.",
+              "createdAt": "2025-07-01T22:42:22Z",
+              "updatedAt": "2025-07-01T22:42:22Z"
             }
           ]
         }
