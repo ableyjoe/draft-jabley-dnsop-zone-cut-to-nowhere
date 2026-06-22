@@ -8,14 +8,14 @@
 <meta content="Joe Abley" name="author">
 <meta content="Wes Hardaker" name="author">
 <meta content="Warren Kumari" name="author">
-<meta content="
-       This document defines a standard means to signal that a zone cut
-exists in the DNS without specifying a set of nameservers to which
-a child zone is delegated. This is useful in situations where it
-is important to make it clear to clients that a zone cut exists,
-but when the child zone is only provisioned in a private namespace. 
-    " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content='
+       This document defines a standard mechanism to signal the existence of a DNS
+zone cut without specifying authoritative nameservers for the delegated child
+zone. This "zone cut to nowhere" is particularly useful in split-horizon
+environments, allowing parent zones to explicitly signal that a child zone
+exists but is only resolvable within a private namespace. 
+    ' name="description">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="DNS" name="keyword">
 <meta content="DNSSEC" name="keyword">
 <meta content="zone cut" name="keyword">
@@ -23,19 +23,19 @@ but when the child zone is only provisioned in a private namespace.
 <meta content="referral" name="keyword">
 <meta content="draft-jabley-dnsop-zone-cut-to-nowhere-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.11
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.3.8
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
-    PyYAML 6.0.2
-    requests 2.32.4
-    setuptools 80.9.0
-    wcwidth 0.2.13
+    PyYAML 6.0.3
+    requests 2.33.1
+    wcwidth 0.8.1
 -->
 <link href="draft-jabley-dnsop-zone-cut-to-nowhere.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -176,7 +176,7 @@ but when the child zone is only provisioned in a private namespace.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -184,7 +184,8 @@ but when the child zone is only provisioned in a private namespace.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -301,16 +302,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -330,10 +334,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -344,59 +348,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -434,26 +438,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -469,20 +472,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -518,9 +523,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -530,17 +535,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -576,6 +583,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -589,25 +597,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -627,13 +627,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -644,18 +637,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -714,9 +705,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -806,23 +797,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -833,19 +828,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -866,54 +863,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -932,26 +929,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -967,12 +964,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1034,17 +1032,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1054,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Signalling a Zone Cut to Nowhere in the </td>
-<td class="right">June 2025</td>
+<td class="right">June 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Abley, et al.</td>
-<td class="center">Expires 19 December 2025</td>
+<td class="center">Expires 24 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfcRFC1035" class="eref">RFC1035</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-17" class="published">17 June 2025</time>
+<time datetime="2026-06-22" class="published">22 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-19">19 December 2025</time></dd>
+<dd class="expires"><time datetime="2026-12-24">24 December 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,11 +1100,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Signalling a Zone Cut to Nowhere in the DNS</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a standard means to signal that a zone cut
-exists in the DNS without specifying a set of nameservers to which
-a child zone is delegated. This is useful in situations where it
-is important to make it clear to clients that a zone cut exists,
-but when the child zone is only provisioned in a private namespace.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines a standard mechanism to signal the existence of a DNS
+zone cut without specifying authoritative nameservers for the delegated child
+zone. This "zone cut to nowhere" is particularly useful in split-horizon
+environments, allowing parent zones to explicitly signal that a child zone
+exists but is only resolvable within a private namespace.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1141,7 +1141,7 @@ but when the child zone is only provisioned in a private namespace.<a href="#sec
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1150,7 +1150,7 @@ but when the child zone is only provisioned in a private namespace.<a href="#sec
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1248,12 +1248,12 @@ specified using specific resource records which are published within
 the parent and child zones; the parent-side resource records are
 revealed during DNS resolution by way of referral responses from
 nameservers.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Private DNS namespaces also exist. A user of a private network might
-be able to resolve names using local DNS infrastructure that are
-not visible to other users of other networks. This is often an
-intentional and deliberate configuration by network operators, for
-example to provide name resolution for internal, private services
-that are not available to users of other networks.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">Private DNS namespaces also exist, and are commonly used in enterprise and
+corporate environments, where a portion of the namespace is only accessible
+within the organization, using internal DNS infrastructure. This is often
+referred to as "split" DNS. A user of a private network might be able to
+resolve names using local DNS infrastructure that are not visible to other
+users of other networks.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">When a device or application uses the DNS protocol to resolve both
 internal names and external names published in the global DNS
 namespace, ambiguity can result. For example, DNS responses from
@@ -1262,17 +1262,16 @@ name published in an internal namespace does not exist, while an
 internal nameserver might be configured to respond differently.
 Since mobile devices can attach to different networks and can cache
 DNS responses obtained from different namespaces, this ambiguity
-can cause headaches. A DNSSEC-aware resolver on a mobile device
+can cause issues. A DNSSEC-aware resolver on a mobile device
 might cache a signed, negative response from an external nameserver
 for a particular name and might treat a subsequent, positive response
 from an internal nameserver for the same name as bogus, preventing
 the response from being used by an application.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document provides a means of signalling the existence of a
-zone cut in a namespace in circumstances where the child zone only
-exists in a different namespace from the parent. We refer to this
-type of zone cut as a "zone cut to nowhere" and introduce the
-corresponding terms "delegation to nowhere" and "referral to nowhere"
-in <a href="#definitions" class="auto internal xref">Section 2</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document provides a means of explicitly signalling the existence of a zone
+cut in a namespace in circumstances where the child zone only exists in a
+different namespace from the parent. We refer to this type of zone cut as a
+"zone cut to nowhere" and introduce the corresponding terms "delegation to
+nowhere" and "referral to nowhere" in <a href="#definitions" class="auto internal xref">Section 2</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="definitions">
@@ -1375,6 +1374,9 @@ response to nowhere can safely be interpreted and processed in an
 identical fashion to any other referral response where the authoritative
 servers for the child zone cannot themselves be resolved, and hence
 cannot be reached.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">{Editor's note (to be removed before publication): Please see
+<span>[<a href="#Hardaker2026" class="cite xref">Hardaker2026</a>]</span>, and the IEPG recording <span>[<a href="#IEPG-IETF125" class="cite xref">IEPG-IETF125</a>]</span>
+for real-world testing of this behavior.}<a href="#section-4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="applicability">
@@ -1579,11 +1581,14 @@ private namespace).<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 domain name does not accept e-mail. In effect, the empty field is
 used to indicate that there is no host available to use for e-mail
 delivery.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">In addition, <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span> states that an SVR 'Target of "." means that the
-service is decidedly not available at this domain.'. <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, Section 2.5
-(Special Handling of "." in TargetName) expands on this, including noting
-that for 'For AliasMode SVCB RRs, a TargetName of "." indicates that the
-service is not available or does not exist.'<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-2">In <span>[<a href="#RFC2782" class="cite xref">RFC2782</a>]</span> an SRV 'Target of "." means that the service is
+decidedly not available at this domain.'<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3"><span>[<a href="#RFC9460" class="cite xref">RFC9460</a>], <a href="https://rfc-editor.org/rfc/rfc9460#section-2.5" class="relref">Section 2.5</a></span> notes that 'For AliasMode SVCB RRs, a
+TargetName of "." indicates that the service is not available or
+does not exist.'<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">These uses of the empty name are conceptually consistent with the
+meaning defined in this document: that using an empty name is to
+be interpreted as the corresponding function not being available.<a href="#section-8-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operational-considerations">
@@ -1592,9 +1597,9 @@ service is not available or does not exist.'<a href="#section-8-2" class="pilcro
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <p id="section-9-1">The empty name is not known to have been widely used as an NS target,
-although it has been used as an MX target, as described in
-<a href="#other_uses" class="auto internal xref">Section 8</a>. It is a reasonable concern that if delegations to
-nowhere became prevalent, or if names related to such zone cuts
+although it has been used with other resource records, as described
+in <a href="#other_uses" class="auto internal xref">Section 8</a>. It is a reasonable concern that if delegations
+to nowhere became prevalent, or if names related to such zone cuts
 were associated with significant traffic, some operational problem
 might result. For example, DNS software that made incompatible
 assumptions about DNS responses might fail, or harmful traffic to
@@ -1610,12 +1615,13 @@ to nowhere would lead to operational problems.<a href="#section-9-2" class="pilc
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">This document provides a means for both internal and global namespaces
-to be provisioned using DNSSEC, allowing a DNSSEC-aware, mobile
-resolver to maintain a consistent chain of trust regardless of
-whether a private, child namespace exists from it's particular
-vantage point. The ability to support this configuration cleanly has
-better security properties than configurations that are ambiguous.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">By explicitly signalling the existence of a private child zone, this mechanism
+prevents DNSSEC-aware resolvers from erroneously caching authenticated denial
+of existence (NSEC/NSEC3) records from the global namespace for private
+subdomains. This allows a roaming, DNSSEC-aware resolver to maintain a
+consistent chain of trust regardless of its vantage point. Consequently, this
+unambiguous configuration offers better security and operational stability than
+relying on split-horizon architectures without explicit parent-side signalling.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1680,11 +1686,19 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="Byrne1985">[Byrne1985]</dt>
         <dd>
-<span class="refAuthor">Byrne, D.</span>, <span class="refTitle">"Road to Nowhere"</span>, <time datetime="1985-06-03" class="refDate">3 June 1985</time>. </dd>
+<span class="refAuthor">Byrne, D.</span>, <span class="refTitle">"Road to Nowhere"</span>, <span class="refContent">from the album "Little Creatures", Sire Records</span>, <time datetime="1985-06-03" class="refDate">3 June 1985</time>. </dd>
+<dd class="break"></dd>
+<dt id="Hardaker2026">[Hardaker2026]</dt>
+        <dd>
+<span class="refAuthor">Hardaker, W.</span>, <span class="refTitle">"Analyzing .internal to .dot"</span>, <span class="refContent">https://ant.isi.edu/~hardaker/papers/2026-04-27-analyzing-dot-internal-to-dot.pdf</span>, <time datetime="2026-04-27" class="refDate">27 April 2026</time>. </dd>
+<dd class="break"></dd>
+<dt id="IEPG-IETF125">[IEPG-IETF125]</dt>
+        <dd>
+<span class="refTitle">"IEPG @ IETF 125 Meeting Recording"</span>, <span class="refContent">https://youtu.be/fGZj3SWi-OI?t=1772</span>, <span>n.d.</span>. </dd>
 <dd class="break"></dd>
 <dt id="Powers2006">[Powers2006]</dt>
         <dd>
-<span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
+<span class="refAuthor">Powers, T.</span>, <span class="refTitle">"Three Days to Never"</span>, <span class="refContent">William Morrow &amp; Company, ISBN 978-0380976539</span>, <time datetime="2006-08-08" class="refDate">8 August 2006</time>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2782">[RFC2782]</dt>
         <dd>
@@ -1716,7 +1730,9 @@ IANA, however.<a href="#section-11-2" class="pilcrow">¶</a></p>
       <h2 id="name-experiments">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
       </h2>
-<p id="appendix-A-1">Wes has committed acts of science. He will describe them here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Please see <span>[<a href="#Hardaker2026" class="cite xref">Hardaker2026</a>]</span> for some real world testing of the use of
+delegations to nowhere, and the IEPG recording of the discussion:
+<span>[<a href="#IEPG-IETF125" class="cite xref">IEPG-IETF125</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="acknowledgments">
