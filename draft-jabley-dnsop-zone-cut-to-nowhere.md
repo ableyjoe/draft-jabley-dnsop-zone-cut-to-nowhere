@@ -60,14 +60,26 @@ informative:
         org: Talking Heads
     rc: from the album "Little Creatures", Sire Records
     date: 1985-06-03
+  Hardaker2026:
+    title: Analyzing .internal to .dot
+    author:
+      -
+        ins: W. Hardaker
+        name: Wes Hardaker
+    date: 2026-04-27
+    rc: https://ant.isi.edu/~hardaker/papers/2026-04-27-analyzing-dot-internal-to-dot.pdf
+  IEPG-IETF125:
+    title: IEPG @ IETF 125 Meeting Recording
+    rc: https://youtu.be/fGZj3SWi-OI?t=1772
+
 
 --- abstract
 
-This document defines a standard means to signal that a zone cut
-exists in the DNS without specifying a set of nameservers to which
-a child zone is delegated. This is useful in situations where it
-is important to make it clear to clients that a zone cut exists,
-but when the child zone is only provisioned in a private namespace.
+This document defines a standard mechanism to signal the existence of a DNS
+zone cut without specifying authoritative nameservers for the delegated child
+zone. This "zone cut to nowhere" is particularly useful in split-horizon
+environments, allowing parent zones to explicitly signal that a child zone
+exists but is only resolvable within a private namespace.
 
 
 --- middle
@@ -83,12 +95,12 @@ the parent and child zones; the parent-side resource records are
 revealed during DNS resolution by way of referral responses from
 nameservers.
 
-Private DNS namespaces also exist. A user of a private network might
-be able to resolve names using local DNS infrastructure that are
-not visible to other users of other networks. This is often an
-intentional and deliberate configuration by network operators, for
-example to provide name resolution for internal, private services
-that are not available to users of other networks.
+Private DNS namespaces also exist, and are commonly used in enterprise and
+corporate environments, where a portion of the namespace is only accessible
+within the organization, using internal DNS infrastructure. This is often
+referred to as "split" DNS. A user of a private network might be able to
+resolve names using local DNS infrastructure that are not visible to other
+users of other networks.
 
 When a device or application uses the DNS protocol to resolve both
 internal names and external names published in the global DNS
@@ -98,18 +110,17 @@ name published in an internal namespace does not exist, while an
 internal nameserver might be configured to respond differently.
 Since mobile devices can attach to different networks and can cache
 DNS responses obtained from different namespaces, this ambiguity
-can cause headaches. A DNSSEC-aware resolver on a mobile device
+can cause issues. A DNSSEC-aware resolver on a mobile device
 might cache a signed, negative response from an external nameserver
 for a particular name and might treat a subsequent, positive response
 from an internal nameserver for the same name as bogus, preventing
 the response from being used by an application.
 
-This document provides a means of signalling the existence of a
-zone cut in a namespace in circumstances where the child zone only
-exists in a different namespace from the parent. We refer to this
-type of zone cut as a "zone cut to nowhere" and introduce the
-corresponding terms "delegation to nowhere" and "referral to nowhere"
-in {{definitions}}.
+This document provides a means of explicitly signalling the existence of a zone
+cut in a namespace in circumstances where the child zone only exists in a
+different namespace from the parent. We refer to this type of zone cut as a
+"zone cut to nowhere" and introduce the corresponding terms "delegation to
+nowhere" and "referral to nowhere" in {{definitions}}.
 
 # Conventions and Definitions {#definitions}
 
@@ -192,6 +203,10 @@ response to nowhere can safely be interpreted and processed in an
 identical fashion to any other referral response where the authoritative
 servers for the child zone cannot themselves be resolved, and hence
 cannot be reached.
+
+{Editor's note (to be removed before publication): Please see
+{{Hardaker2026}}, and the IEPG recording {{IEPG-IETF125}}
+for real-world testing of this behavior.}
 
 # Applicability
 
@@ -403,12 +418,13 @@ to nowhere would lead to operational problems.
 
 # Security Considerations
 
-This document provides a means for both internal and global namespaces
-to be provisioned using DNSSEC, allowing a DNSSEC-aware, mobile
-resolver to maintain a consistent chain of trust regardless of
-whether a private, child namespace exists from it's particular
-vantage point. The ability to support this configuration cleanly has
-better security properties than configurations that are ambiguous.
+By explicitly signalling the existence of a private child zone, this mechanism
+prevents DNSSEC-aware resolvers from erroneously caching authenticated denial
+of existence (NSEC/NSEC3) records from the global namespace for private
+subdomains. This allows a roaming, DNSSEC-aware resolver to maintain a
+consistent chain of trust regardless of its vantage point. Consequently, this
+unambiguous configuration offers better security and operational stability than
+relying on split-horizon architectures without explicit parent-side signalling.
 
 # IANA Considerations
 
@@ -427,7 +443,9 @@ IANA, however.
 
 # Experiments {#experiments}
 
-Wes has committed acts of science. He will describe them here.
+Please see {{Hardaker2026}} for some real world testing of the use of
+delegations to nowhere, and the IEPG recording of the discussion:
+{{IEPG-IETF125}}.
 
 # Acknowledgments
 {:numbered="false"}
