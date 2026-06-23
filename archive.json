@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-06-21T03:55:36.515071+00:00",
+  "timestamp": "2026-06-23T02:56:10.383775+00:00",
   "repo": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
   "labels": [
     {
@@ -660,6 +660,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOO7BwNM7pZsoG",
+      "title": "Make the Abstract more explicit, add experiment,  rewrite seccons.",
+      "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/3",
+      "state": "OPEN",
+      "author": "wkumari",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I made the Abstract (and some other bits) more active / less passive. \r\n\r\nAlso added links to Wes' analysis, both in \"Interpreting a Referral to Nowhere\" and the back matter.\r\n\r\nAlso rewrote the Security Considerations to be stronger.",
+      "createdAt": "2026-06-22T22:44:38Z",
+      "updatedAt": "2026-06-22T22:44:38Z",
+      "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "baseRefName": "main",
+      "baseRefOid": "345e5181de71f0ecf0f0b0db7e2b6e3567770212",
+      "headRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "headRefName": "more_direct_add_experiment",
+      "headRefOid": "648772f39ad06c5cc449e1750833a93f864f1578",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
