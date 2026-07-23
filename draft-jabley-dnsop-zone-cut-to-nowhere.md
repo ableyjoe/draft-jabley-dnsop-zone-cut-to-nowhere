@@ -416,6 +416,12 @@ of such problems are described in {{experiments}}. The results of
 those experiments do not suggest that the widespread use of delegations
 to nowhere would lead to operational problems.
 
+Many organizations have a private namespace that is not mirrored on the
+outside, except, partially and temporarily, when deploying TXT records
+for ACME DNS-01 validation to obtain certificates for internal usage
+from one of the common WebPKI CAs. Organizations with such a setup
+cannot use the delegation to nowhere.
+
 # Security Considerations
 
 By explicitly signalling the existence of a private child zone, this mechanism
