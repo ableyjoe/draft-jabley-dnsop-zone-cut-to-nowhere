@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-23T02:28:58.398045+00:00",
+  "timestamp": "2026-07-26T02:31:18.340043+00:00",
   "repo": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
   "labels": [
     {
@@ -702,6 +702,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOO7BwNM71YG1Y",
+      "title": "add note about external ACME DNS-01 usage for internal names",
+      "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/4",
+      "state": "OPEN",
+      "author": "Habbie",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-07-23T13:03:15Z",
+      "updatedAt": "2026-07-23T13:03:15Z",
+      "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "baseRefName": "main",
+      "baseRefOid": "a7373aad7359325cb5b8e75e4564a86cc7c68d98",
+      "headRepository": "Habbie/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "headRefName": "acme-dns-01",
+      "headRefOid": "873529f930766d475d43e3f4bbcae9094e110160",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
