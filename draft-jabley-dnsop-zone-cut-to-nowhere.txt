@@ -6,9 +6,9 @@ Domain Name System Operations                                   J. Abley
 Internet-Draft                                                Cloudflare
 Updates: RFC1035 (if approved)                               W. Hardaker
 Intended status: Standards Track                                 USC/ISI
-Expires: 25 December 2026                                      W. Kumari
+Expires: 8 February 2027                                       W. Kumari
                                                             Google, Inc.
-                                                            23 June 2026
+                                                           7 August 2026
 
 
               Signalling a Zone Cut to Nowhere in the DNS
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 December 2026.
+   This Internet-Draft will expire on 8 February 2027.
 
 Copyright Notice
 
@@ -419,6 +419,12 @@ Table of Contents
    experiments do not suggest that the widespread use of delegations to
    nowhere would lead to operational problems.
 
+   Many organizations have a private namespace that is not mirrored on
+   the outside, except, partially and temporarily, when deploying TXT
+   records for ACME DNS-01 validation to obtain certificates for
+   internal usage from one of the common WebPKI CAs.  Organizations with
+   such a setup cannot use the delegation to nowhere.
+
 10.  Security Considerations
 
    By explicitly signalling the existence of a private child zone, this
@@ -461,10 +467,7 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
-              Rose, "DNS Security Introduction and Requirements",
-              RFC 4033, DOI 10.17487/RFC4033, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc4033>.
+   [RFC4033]  "*** BROKEN REFERENCE ***".
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
