@@ -456,9 +456,6 @@ delegations to nowhere, and the IEPG recording of the discussion:
 # Acknowledgments
 {:numbered="false"}
 
-The authors stand ready to acknowledge all contributions from their
-friends and colleagues.
-
 The phrase "delegation to nowhere" was inspired by the misremebered
 title of a novel by Tim Powers entitled "Two Days to Nowhere", in
 which characters deal with ambiguous realities by way of supernatural
@@ -476,3 +473,12 @@ The song "Road to Nowhere" {{Byrne1985}} from the 1985 Talking Heads
 album "Little Creatures" would perhaps have been a better inspiration
 for the terminology.  It's a shame that's not what happened.
 
+The authors stand ready to acknowledge all contributions from their friends and
+colleagues. These include, but are not limited to, the following people: Mark
+Andrews, Ray Bellis, Steve Crocker, Peter van Dijk, Ross Gibson, Paul Hoffman,
+Geoff Huston, Philip Homburg, Eberhard Lisse, Ted Lemon, Andrew McConachie,
+Scott Morizot, Benno Overeinder, Libor Peltan, Petr Špaček, Michael Richardson,
+Michael De Roover, Ondřej Surý, and Peter Thomassen. At least one of the
+authors has a staggeringly bad memory for names, faces, and life in general, so
+if you contributed and your name is not listed here, please accept our
+apologies and let us know so we can correct the oversight.
