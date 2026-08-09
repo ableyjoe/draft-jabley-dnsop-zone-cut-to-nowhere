@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-08-06T02:20:01.849349+00:00",
+  "timestamp": "2026-08-09T01:24:55.421850+00:00",
   "repo": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
   "labels": [
     {
@@ -708,26 +708,85 @@
       "id": "PR_kwDOO7BwNM71YG1Y",
       "title": "add note about external ACME DNS-01 usage for internal names",
       "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Habbie",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-07-23T13:03:15Z",
-      "updatedAt": "2026-07-23T13:03:15Z",
+      "updatedAt": "2026-08-07T15:07:50Z",
       "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
       "baseRefName": "main",
       "baseRefOid": "a7373aad7359325cb5b8e75e4564a86cc7c68d98",
       "headRepository": "Habbie/draft-jabley-dnsop-zone-cut-to-nowhere",
       "headRefName": "acme-dns-01",
       "headRefOid": "873529f930766d475d43e3f4bbcae9094e110160",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2026-08-07T15:03:54Z",
+      "mergedAt": "2026-08-07T15:03:54Z",
+      "mergedBy": "wkumari",
+      "mergeCommit": {
+        "oid": "65857a1e6487c7d841d170e259eabcf1a1f5cc8c"
+      },
+      "comments": [
+        {
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thank you very much for the PR!",
+          "createdAt": "2026-08-07T15:03:58Z",
+          "updatedAt": "2026-08-07T15:03:58Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I have merged your PR, but would you be OK with my extending this from: \r\n\"Organizations with such a setup cannot use the delegation to nowhere.\"\r\nto:\r\n\"Organizations with such a setup cannot use the delegation to nowhere, or would need to temporarily disable the delegation to nowhere in a similar manner to how they were previously exposing the private namespace.\"?",
+          "createdAt": "2026-08-07T15:07:50Z",
+          "updatedAt": "2026-08-07T15:07:50Z"
+        }
+      ],
       "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOO7BwNM78HBZM",
+      "title": "I went to add Peter van Dijk to the Acknowledgements section and real\u2026",
+      "url": "https://github.com/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/pull/5",
+      "state": "MERGED",
+      "author": "wkumari",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026ized that we hadn't actually added individuals yet, so I did so. I think that I captured most people, but am sure I've missed some.\r\n\r\nI think that we can ask the chairs for adoption - as a reminder, during the meeting (https://meetecho-player.ietf.org/playout/?session=IETF126-DNSOP-20260720-1430&t=3323) Joe asked: \"Yeah, so we could adopt then?\"\r\nThe chairs (Benno) replied: \"Yeah, I think I made a note. Well, of course we take it to the mailing list. But we got good feedback from the room, good questions, and good support. So we go to the mailing list for call for adoption, but we have to schedule with other work.\"",
+      "createdAt": "2026-08-07T15:36:20Z",
+      "updatedAt": "2026-08-07T18:07:13Z",
+      "baseRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "baseRefName": "main",
+      "baseRefOid": "65857a1e6487c7d841d170e259eabcf1a1f5cc8c",
+      "headRepository": "ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere",
+      "headRefName": "add_habbie_whoops_ack",
+      "headRefOid": "e081ade65f020ea7d103b23bbad8149d5de8b4e1",
+      "closedAt": "2026-08-07T18:07:13Z",
+      "mergedAt": "2026-08-07T18:07:13Z",
+      "mergedBy": "ableyjoe",
+      "mergeCommit": {
+        "oid": "9cb328ce191c1404f1ed62607538e9445807847e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOO7BwNM8AAAABIzFVsQ",
+          "commit": {
+            "abbreviatedOid": "e081ade"
+          },
+          "author": "copilot-pull-request-reviewer",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "## Pull request overview\n\nThis PR updates the Internet-Draft\u2019s Acknowledgments section to explicitly name individual contributors (including Peter van Dijk) and adds a note inviting omitted contributors to be added.\n\n**Changes:**\n- Replaces the generic \u201cstand ready to acknowledge\u2026\u201d boilerplate with an explicit list of individuals.\n- Adds an apology/invitation for corrections when contributors are missing from the list.\n\n\n\n\n\n\n\n---\n\n\ud83d\udca1 <a href=\"/ableyjoe/draft-jabley-dnsop-zone-cut-to-nowhere/new/main?filename=.github/instructions/*.instructions.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add Copilot custom instructions</a> for smarter, more guided reviews. <a href=\"https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn how to get started</a>.",
+          "createdAt": "2026-08-07T18:04:06Z",
+          "updatedAt": "2026-08-07T18:04:06Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
