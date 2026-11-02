@@ -1,8 +1,20 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
+# These are Not the Droids you're Looking For
+
+This document was adopted by the [DNSOP working
+group](https://datatracker.ietf.org/wg/dnsop/) and the working text
+was moved to [the working group's account on
+github.com](https://github.com/ietf-wg-dnsop). This personal
+repository is no longer a good place to look if you are interested
+in today's rather than yesterday's news.
+
+* [Working repository for future changes](https://github.com/ietf-wg-dnsop/draft-ietf-dnsop-zone-cut-to-nowhere)
+* [Datatracker page for draft-ietf-dnsop-zone-cut-to-nowhere](https://datatracker.ietf.org/doc/draft-ietf-dnsop-zone-cut-to-nowhere/)
+
 # Signalling a Zone Cut to Nowhere in the DNS
 
-This is the working area for the individual Internet-Draft, "Signalling a Zone Cut to Nowhere in the DNS".
+This is an archived working area for the individual Internet-Draft, "Signalling a Zone Cut to Nowhere in the DNS".
 
 * [Editor's Copy](https://ableyjoe.github.io/draft-jabley-dnsop-zone-cut-to-nowhere/#go.draft-jabley-dnsop-zone-cut-to-nowhere.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-jabley-dnsop-zone-cut-to-nowhere)
