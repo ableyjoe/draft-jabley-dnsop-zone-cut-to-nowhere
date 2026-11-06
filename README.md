@@ -7,7 +7,8 @@ group](https://datatracker.ietf.org/wg/dnsop/) and the working text
 was moved to [the working group's account on
 github.com](https://github.com/ietf-wg-dnsop). This personal
 repository is no longer a good place to look if you are interested
-in today's rather than yesterday's news.
+in today's rather than yesterday's news. In fact, let me just
+archive this repo and make it read-only.
 
 * [Working repository for future changes](https://github.com/ietf-wg-dnsop/draft-ietf-dnsop-zone-cut-to-nowhere)
 * [Datatracker page for draft-ietf-dnsop-zone-cut-to-nowhere](https://datatracker.ietf.org/doc/draft-ietf-dnsop-zone-cut-to-nowhere/)
